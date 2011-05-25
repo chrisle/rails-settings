@@ -90,8 +90,14 @@ Now even if the database is completely empty, you app will have some intelligent
 
 Settings may be bound to any existing ActiveRecord object. Define this association like this:
 
+  # setting.rb
+  class Setting < ActiveRecord::Base
+    belongs_to :target, :polymorphic => true
+  end
+
+  # user.rb
   class User < ActiveRecord::Base
-    has_settings
+    has_many :settings, :as => target
   end
 
 Then you can set/get a setting for a given user instance just by doing this:
